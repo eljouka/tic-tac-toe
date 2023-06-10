@@ -1,5 +1,11 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Board myboard = new Board();
+        myboard.displayBoard();
+        
+        myboard.placeSym(4,1,"X");
+    
+        myboard.displayBoard();
+    
     }
 }
