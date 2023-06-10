@@ -17,14 +17,12 @@ public class Play {
         
         Player currPlayer = player1;
         
-        String message = currPlayer.name + ", please make a move"; // once compiled, this stores player1 name only (doesn't change)
-        
         int col;
         int row;
         int index = 0;
     
         while (!game.isEnd()) {
-            System.out.println(message);
+            System.out.println(currPlayer.name + ", please make a move");
             
             col = new Scanner(System.in).nextInt();
             row = new Scanner(System.in).nextInt();
@@ -37,7 +35,6 @@ public class Play {
                 System.out.println("**** changing current");
             }
             game.getBoard().displayBoard();
-            message = currPlayer.name + ", please make a move";
         }
         
         if (game.getStatus() == Status.P1WIN) {
