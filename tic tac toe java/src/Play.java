@@ -17,13 +17,12 @@ public class Play {
         
         Player currPlayer = player1;
         
-        String message;
-        String defaultMessage = currPlayer.name + ", please make a move"; // once compiled, this stores player1 name only (doesn't change)
-        message = defaultMessage;
+        String message = currPlayer.name + ", please make a move"; // once compiled, this stores player1 name only (doesn't change)
         
         int col;
         int row;
-        
+        int index = 0;
+    
         while (!game.isEnd()) {
             System.out.println(message);
             
@@ -31,7 +30,10 @@ public class Play {
             row = new Scanner(System.in).nextInt();
             
             if (game.getBoard().placeSym(col,row,currPlayer.sym)) {
-                currPlayer = game.players[currPlayer.num % 2];
+                index ++;
+                if (index == game.players.length) index = 0;
+                currPlayer = game.players[index];
+    
                 System.out.println("**** changing current");
             }
             game.getBoard().displayBoard();
