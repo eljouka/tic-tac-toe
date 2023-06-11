@@ -10,6 +10,7 @@ public class Game {
         this.players[0] = p1;
         this.players[1] = p2;
         
+        this.board.generateBoard();
         this.board.displayBoard();
     }
     
@@ -26,7 +27,7 @@ public class Game {
     }
     
     public boolean isEnd() {
-        return (this.getStatus() == Status.P1WIN || this.getStatus() == Status.P2WIN);
+        return (this.getStatus() == Status.P1WIN || this.getStatus() == Status.P2WIN || this.getStatus() == Status.DRAW);
     }
     
     
