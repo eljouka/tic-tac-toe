@@ -11,7 +11,6 @@ public class Game {
         this.players[1] = p2;
         
         this.board.generateBoard();
-        this.board.displayBoard();
     }
     
     public Status getStatus() {
@@ -27,7 +26,7 @@ public class Game {
     }
     
     public boolean isEnd() {
-        return (this.getStatus() == Status.P1WIN || this.getStatus() == Status.P2WIN || this.getStatus() == Status.DRAW);
+        return (this.getStatus() == Status.WIN || this.getStatus() == Status.DRAW);
     }
     
     

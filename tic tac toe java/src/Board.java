@@ -16,8 +16,6 @@ public class Board {
         try {
             if (board[col][row].getSymbol() == null) {
                 board[col][row].setSymbol(sym);
-                System.out.println("**** making a move");
-                
             }
             else {
                 System.out.println("Oops, please choose an unoccupied space");
@@ -45,7 +43,6 @@ public class Board {
     
     // winning board
    public void displayBoard(int row1, int col1, int row2, int col2, int row3, int col3) {
-       System.out.println("");
        for (int i = 2; i >= 0; i--) {
            System.out.print((i+1) + "  ");
         

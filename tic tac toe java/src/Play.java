@@ -12,22 +12,29 @@ public class Play {
         
         Player player1 = new Player(player1Name, "X",1);
         Player player2 = new Player(player2Name, "O",2);
+    
+        Player currPlayer = player1;
+        String message = currPlayer.name + ", please make a move";
         
         Game game = new Game(player1, player2);
-        
-        Player currPlayer = player1;
-        
-        String message;
-        String defaultMessage = currPlayer.name + ", please make a move";
-        
+    
+    
         int col;
         int row;
         int index = 0;
         int turnCounter = 0;
-    
+        
+        
         while (!game.isEnd()) {
+            
+            if (turnCounter == 0) {
+                System.out.println("Here's the board. " + currPlayer.name + ", please make the first move.");
+                game.getBoard().displayBoard();
+            }
+            
+            else System.out.println(message);
+            
             turnCounter ++;
-            message = defaultMessage;
             col = (new Scanner(System.in).nextInt()) - 1; // since row/col starts at 0
             row = (new Scanner(System.in).nextInt()) - 1;
             boolean didMove = game.getBoard().placeSym(col,row,currPlayer.sym);
@@ -79,14 +86,10 @@ public class Play {
                 )
                 
             {
-                if (currPlayer.num == 1) {
-                    game.setStatus(Status.P1WIN);
-                    message = "Congratulations " + player1.name + "! You won the game :)";
-                }
-                else {
-                    game.setStatus(Status.P2WIN);
-                    message = "Congratulations " + player2.name + "! You won the game :)";
-                }
+            
+            game.setStatus(Status.WIN);
+            message = "Congratulations " + currPlayer.name + "! You won the game :)";
+            
             }
             
             // draw
@@ -100,10 +103,12 @@ public class Play {
                 index ++;
                 if (index == game.players.length) index = 0;
                 currPlayer = game.players[index];
+                message = currPlayer.name + ", please make a move";
+                System.out.println("Cool! Here's the board so far");
             }
             
             game.getBoard().displayBoard();
-            System.out.println(message);
+            
         }
     }
 }
