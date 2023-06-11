@@ -5,7 +5,7 @@ public class Board {
     public static final String ANSI_WHITE = "\033[1;97m";
     
     public Board() {
-        this.board = new Tile[4][4];
+        this.board = new Tile[3][3];
         this.board = generateBoard();
     }
     // i : rows
@@ -32,8 +32,8 @@ public class Board {
         return didMove;
     }
     public Tile[][] generateBoard() {
-        for (int i = 3; i >= 1; i--) {
-            for (int j = 1; j <= 3; j++) {
+        for (int i = 2; i >= 0; i--) {
+            for (int j = 0; j <= 2; j++) {
                 board[j][i] = new Tile(j,i);
             }
             
@@ -43,20 +43,23 @@ public class Board {
     }
     
     
-   public void displayBoard() {
+    // winning board
+   public void displayBoard(int row1, int col1, int row2, int col2, int row3, int col3) {
        System.out.println("");
-       for (int i = 3; i >= 1; i--) {
+       for (int i = 2; i >= 0; i--) {
+           System.out.print((i+1) + "  ");
         
-           System.out.print((i) + "  ");
-        
-           for (int j = 1; j <= 3; j++) {
+           for (int j = 0; j <= 2; j++) {
                String sym;
                
                if (board[j][i].getSymbol() == null) {
                    System.out.print("   ");
                }
                else {
-                   if (board[j][i].getSymbol().equals("X")) sym = "X";
+                   if ((i == row1 && j == col1) || (i == row2 && j == col2) || (i == row3 && j == col3)) {
+                       sym = "☺";
+                   }
+                   else if (board[j][i].getSymbol().equals("X")) sym = "X";
                    else sym = "O";
                    System.out.print(" " + sym);
                }
@@ -66,6 +69,9 @@ public class Board {
        }
        System.out.println("\t1  2  3");
    }
-    
-    
+   
+   public void displayBoard() {
+        displayBoard(1000,1000,1000, 1000, 1000, 1000);
+   }
+   
 }

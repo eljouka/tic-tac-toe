@@ -17,6 +17,9 @@ public class Play {
         
         Player currPlayer = player1;
         
+        String message;
+        String defaultMessage = currPlayer.name + ", please make a move";
+        
         int col;
         int row;
         int index = 0;
@@ -24,23 +27,17 @@ public class Play {
     
         while (!game.isEnd()) {
             turnCounter ++;
-            System.out.println(currPlayer.name + ", please make a move");
-            
-            col = new Scanner(System.in).nextInt();
-            row = new Scanner(System.in).nextInt();
+            message = defaultMessage;
+            col = (new Scanner(System.in).nextInt()) - 1; // since row/col starts at 0
+            row = (new Scanner(System.in).nextInt()) - 1;
             boolean didMove = game.getBoard().placeSym(col,row,currPlayer.sym);
             
             // game end conditions
             
-            // draw
-            if (turnCounter == 9) {
-                game.setStatus(Status.DRAW);
-                System.out.println("Looks like it's a draw :(");
-            }
-            
-            // win (horizontal and vertical)
+            // win (horizontal, vertical, and diagonal)
             if
             (
+                    // horizontal
                     ((game.getBoard().board[0][row].getSymbol() != null &&
                     game.getBoard().board[1][row].getSymbol() != null &&
                     game.getBoard().board[2][row].getSymbol() != null )
@@ -49,7 +46,7 @@ public class Play {
                     game.getBoard().board[1][row].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[2][row].getSymbol().equals(currPlayer.sym)))
                     
-                    ||
+                    || // vertical
                     
                     ((game.getBoard().board[col][0].getSymbol() != null &&
                     game.getBoard().board[col][1].getSymbol() != null &&
@@ -58,31 +55,55 @@ public class Play {
                     (game.getBoard().board[col][0].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[col][1].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[col][2].getSymbol().equals(currPlayer.sym)))
+        
+                    || // diagonal
+
+                    ((game.getBoard().board[0][2].getSymbol() != null &&
+                    game.getBoard().board[1][1].getSymbol() != null &&
+                    game.getBoard().board[2][0].getSymbol() != null )
+                            &&
+                    (game.getBoard().board[0][2].getSymbol().equals(currPlayer.sym) &&
+                    game.getBoard().board[1][1].getSymbol().equals(currPlayer.sym) &&
+                    game.getBoard().board[2][0].getSymbol().equals(currPlayer.sym)))
+                    
+                    || // diagonal
+                    
+                    ((game.getBoard().board[0][0].getSymbol() != null &&
+                    game.getBoard().board[1][1].getSymbol() != null &&
+                    game.getBoard().board[2][2].getSymbol() != null )
+                            &&
+                    (game.getBoard().board[0][0].getSymbol().equals(currPlayer.sym) &&
+                    game.getBoard().board[1][1].getSymbol().equals(currPlayer.sym) &&
+                    game.getBoard().board[2][2].getSymbol().equals(currPlayer.sym)))
+                    
                 )
                 
             {
-                if (currPlayer.num == 1)
+                if (currPlayer.num == 1) {
                     game.setStatus(Status.P1WIN);
-                else game.setStatus(Status.P2WIN);
+                    message = "Congratulations " + player1.name + "! You won the game :)";
+                }
+                else {
+                    game.setStatus(Status.P2WIN);
+                    message = "Congratulations " + player2.name + "! You won the game :)";
+                }
+            }
+            
+            // draw
+            else if (turnCounter == 9) {
+                game.setStatus(Status.DRAW);
+                message = "Looks like it's a draw :(";
             }
     
     
-            if (didMove) {
+            else if (didMove) {
                 index ++;
                 if (index == game.players.length) index = 0;
                 currPlayer = game.players[index];
-        
-                System.out.println("**** changing current");
             }
-            game.getBoard().displayBoard();
             
-        }
-        
-        if (game.getStatus() == Status.P1WIN) {
-            System.out.println("Congratulations " + player1.name + "! You won the game :)");
-        }
-        else {
-            System.out.println("Congratulations " + player2.name + "! You won the game :)");
+            game.getBoard().displayBoard();
+            System.out.println(message);
         }
     }
 }
