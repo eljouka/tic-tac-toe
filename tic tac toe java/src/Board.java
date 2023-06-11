@@ -64,7 +64,7 @@ public class Board {
            System.out.println("");
         
        }
-       System.out.println("\t1  2  3");
+       System.out.println("\t1 2 3");
    }
    
    public void displayBoard() {

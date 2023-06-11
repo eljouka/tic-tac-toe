@@ -88,7 +88,7 @@ public class Play {
             {
             
             game.setStatus(Status.WIN);
-            message = "Congratulations " + currPlayer.name + "! You won the game :)";
+            System.out.println("Congratulations " + currPlayer.name + "! You won the game :)");
             
             }
             
