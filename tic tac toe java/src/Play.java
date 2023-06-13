@@ -42,9 +42,16 @@ public class Play {
             // game end conditions
             
             // win (horizontal, vertical, and diagonal)
-            if
+            int winrow1 = 4; //initialise out of bounds
+            int wincol1 = 4;
+            int winrow2 = 4;
+            int wincol2 = 4;
+            int winrow3 = 4;
+            int wincol3 = 4;
+            
+            if // horizontal
             (
-                    // horizontal
+                    
                     ((game.getBoard().board[0][row].getSymbol() != null &&
                     game.getBoard().board[1][row].getSymbol() != null &&
                     game.getBoard().board[2][row].getSymbol() != null )
@@ -52,8 +59,17 @@ public class Play {
                     (game.getBoard().board[0][row].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[1][row].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[2][row].getSymbol().equals(currPlayer.sym)))
-                    
-                    || // vertical
+            ) {
+                winrow1 = row;
+                winrow2 = row;
+                winrow3 = row;
+                wincol1 = 0;
+                wincol2 = 1;
+                wincol3 = 2;
+    
+                game.setStatus(Status.WIN);
+            }
+            else if ( // vertical
                     
                     ((game.getBoard().board[col][0].getSymbol() != null &&
                     game.getBoard().board[col][1].getSymbol() != null &&
@@ -62,8 +78,17 @@ public class Play {
                     (game.getBoard().board[col][0].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[col][1].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[col][2].getSymbol().equals(currPlayer.sym)))
-        
-                    || // diagonal
+            ) {
+                winrow1 = 0;
+                winrow2 = 1;
+                winrow3 = 2;
+                wincol1 = col;
+                wincol2 = col;
+                wincol3 = col;
+    
+                game.setStatus(Status.WIN);
+            }
+            else if ( // diagonal
 
                     ((game.getBoard().board[0][2].getSymbol() != null &&
                     game.getBoard().board[1][1].getSymbol() != null &&
@@ -72,8 +97,17 @@ public class Play {
                     (game.getBoard().board[0][2].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[1][1].getSymbol().equals(currPlayer.sym) &&
                     game.getBoard().board[2][0].getSymbol().equals(currPlayer.sym)))
-                    
-                    || // diagonal
+            ) {
+                winrow1 = 0;
+                winrow2 = 1;
+                winrow3 = 2;
+                wincol1 = 2;
+                wincol2 = 1;
+                wincol3 = 0;
+    
+                game.setStatus(Status.WIN);
+            }
+            else if ( // diagonal
                     
                     ((game.getBoard().board[0][0].getSymbol() != null &&
                     game.getBoard().board[1][1].getSymbol() != null &&
@@ -84,13 +118,15 @@ public class Play {
                     game.getBoard().board[2][2].getSymbol().equals(currPlayer.sym)))
                     
                 )
-                
             {
-            
-            game.setStatus(Status.WIN);
-            System.out.println("Congratulations " + currPlayer.name + "! You won the game :)");
-            
+                winrow1 = 0;
+                winrow2 = 1;
+                winrow3 = 2;
+                wincol1 = 0;
+                wincol2 = 1;
+                wincol3 = 2;
             }
+            
             
             // draw
             else if (turnCounter == 9) {
@@ -107,7 +143,13 @@ public class Play {
                 System.out.println("Cool! Here's the board so far");
             }
             
-            game.getBoard().displayBoard();
+            if (!game.isEnd()) game.getBoard().displayBoard();
+            else {
+                game.getBoard().displayBoard(winrow1,wincol1,winrow2,wincol2,winrow3,wincol3);
+                System.out.println("Congratulations " + currPlayer.name + "! You won the game :)");
+                
+    
+            }
             
         }
     }

@@ -32,7 +32,7 @@ public class Board {
     public Tile[][] generateBoard() {
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j <= 2; j++) {
-                board[j][i] = new Tile(j,i);
+                board[j][i] = new Tile();
             }
             
         }
@@ -69,6 +69,7 @@ public class Board {
    
    public void displayBoard() {
         displayBoard(1000,1000,1000, 1000, 1000, 1000);
+        // smiley face condition will never be met, board is displayed normally
    }
    
 }
